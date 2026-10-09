@@ -19,7 +19,10 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # A fixed Ubuntu version, not ubuntu-latest: Playwright's --with-deps installs
+    # system libraries for a specific Ubuntu release, so the runner must not
+    # switch to a new release on its own.
+    runs-on: ubuntu-24.04
     # Safety net: stop the job if something hangs.
     timeout-minutes: 15
 
@@ -85,7 +88,7 @@ jobs:
   deploy:
     needs: test
     if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Only this job may publish to Pages.
     permissions:
       pages: write
