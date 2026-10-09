@@ -1,0 +1,37 @@
+---
+description: Conventions of the Playwright TypeScript test framework for Lena Grines' portfolio site
+alwaysApply: true
+---
+
+# Framework rules
+
+Playwright + TypeScript tests for three applications:
+- the static portfolio site in `site/` of this repo, English only, one page;
+- the login form of https://www.saucedemo.com, a public practice shop (`login` project, needs internet);
+- the REST API https://jsonplaceholder.typicode.com, a public practice API (`api` project, needs internet).
+
+## Structure
+
+- `playwright.config.ts` — base URL, projects, reporters, local `webServer` (Python, port 4174)
+- `pages/HomePage.ts` — Page Object for the portfolio; `pages/LoginPage.ts` — Page Object for the Sauce Demo login
+- `fixtures/test.ts` — exports `test` / `expect` with the `homePage` and `loginPage` fixtures (already opened)
+- `tests/*.spec.ts` — one file per feature, named like its `describe` (`TC-04 Mobile menu` → `mobile-menu.spec.ts`); the `describe` title starts with the TC id (the report groups tests by it)
+- `reporters/summary-reporter.ts` — writes the Test Summary Report to `test-report/index.html` after every run
+- `test-cases/TEST_CASES.md` — test case ↔ automated test map
+- `bug-reports/` — site bugs found by tests (created by `analyze-failure` when needed)
+
+Task skills in `.cursor/skills/`: `write-test` (new test), `run-tests` (run and report), `test-report` (HTML Test Summary Report), `analyze-failure` (triage and fix).
+
+## Rules
+
+1. Import `test` / `expect` from `../fixtures/test`, never from `@playwright/test`.
+2. Locators: prefer `getByRole` with accessible name; CSS/id only when no role/name exists.
+3. A locator used by more than one test goes into the page's Page Object; one-off locators may stay in the test.
+4. No `waitForTimeout`, no `force: true`, no CSS chains like `div > div:nth-child(2)`. Rely on auto-waiting assertions.
+5. Facts about Lena come from the site / resume only: phone `786-941-8197` (`tel:+17869418197`), email `lenagrines.qa@gmail.com`. Sauce Demo data comes from its own login page (password `secret_sauce`); API expectations come from a real response of the API. Never invent data.
+6. Critical-path tests get `@smoke` in the `describe` title.
+7. Projects: `tests/mobile-menu.spec.ts` → `mobile-chrome`; `tests/saucedemo-login.spec.ts` → `login`; `tests/*-api.spec.ts` (e.g. `posts-api.spec.ts`) → `api`; everything else → `desktop-chrome`. A new API spec is named `<resource>-api.spec.ts`; a new Sauce Demo spec must be added to the `login` project's `testMatch` and the `desktop-chrome` `testIgnore`.
+8. Every new test gets a row in `test-cases/TEST_CASES.md`.
+9. Comments in code are in English and explain what is checked and why.
+10. Never change the site to make a test pass.
+11. After changes run `npx tsc --noEmit` and the full suite; all tests must pass.

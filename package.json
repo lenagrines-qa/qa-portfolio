@@ -1,0 +1,20 @@
+{
+  "name": "lena-grines-portfolio-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright TypeScript test framework for Lena Grines portfolio site",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  }
+}

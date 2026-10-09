@@ -1,0 +1,21 @@
+// TypeScript settings. Playwright compiles the tests itself, so this file is
+// mainly for the editor (autocomplete, type errors) and for `npx tsc --noEmit`.
+{
+  "compilerOptions": {
+    // Modern JavaScript output; Node 20+ supports all of it.
+    "target": "ES2022",
+    // Module format Node.js understands without extra setup.
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // Strict type checking: catches typos and wrong types before a test runs.
+    "strict": true,
+    // Allows `import path from 'path'` style imports of Node modules.
+    "esModuleInterop": true,
+    // Do not type-check files inside node_modules (faster, fewer false alarms).
+    "skipLibCheck": true,
+    // Type definitions for Node globals such as `process` and `__dirname`.
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
