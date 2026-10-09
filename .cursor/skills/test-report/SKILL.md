@@ -35,7 +35,7 @@ For environment problems (browser missing, Node < 20, no internet for login or A
 ## 4. Reply
 
 ```
-PASSED | 19 / 19 passed · 0 failed · 0 flaky · 100% · 7.7 s
+PASSED | 47 / 47 passed · 0 failed · 0 flaky · 100% · 7.7 s
 Summary: <the summary sentence from the report>
 Recommendation: <from the report>
 Defects: none | <test title — expected vs received>

@@ -6,15 +6,17 @@
 **Latest test report:** [Test Summary Report](https://lenagrines-qa.github.io/lena-grines-qa-portfolio/report/)
 
 My portfolio site (`site/`) and its test automation in one repo.
-End-to-end UI, accessibility, and site-health tests for the site, login tests for the
-[Sauce Demo](https://www.saucedemo.com) practice shop, and an API test for the
+End-to-end UI, accessibility, and site-health tests for the site in Chrome, Firefox, and WebKit (Safari),
+login tests for the [Sauce Demo](https://www.saucedemo.com) practice shop, and CRUD API tests for the
 [JSONPlaceholder](https://jsonplaceholder.typicode.com) REST API, written with **Playwright + TypeScript**,
 plus **Cursor agent skills** that write, run, and repair those tests under human review.
 
-**19 tests** (12 desktop, 1 mobile, 5 login, 1 API), all passing, about 10 seconds for the full run.
+**47 test runs, all passing:** 12 site tests × 3 desktop browsers, 1 mobile, 5 login, 5 API.
+The full run takes about 30 seconds locally.
 
 - Page Object Model and custom fixtures
-- Desktop, mobile (Pixel 7), login, and API projects — one config, three applications
+- Cross-browser: desktop Chrome, Firefox, WebKit (Safari), plus mobile Chrome (Pixel 7)
+- Login and API projects — one config, three applications
 - Positive, negative, data-driven, API, and accessibility (axe-core, WCAG 2.1 A/AA) checks
 - `@smoke` tag for a fast critical-path run
 - Test Summary Report (custom reporter): summary, metrics, coverage, defects, a screenshot of every test
@@ -37,7 +39,7 @@ tests/
   accessibility.spec.ts   TC-05  WCAG 2.1 A/AA scan, keyboard skip link
   site-health.spec.ts     TC-06  404 page, broken files, JavaScript errors
   saucedemo-login.spec.ts TC-07  Sauce Demo login: valid + 4 data-driven negative cases
-  posts-api.spec.ts       TC-08  REST API: create a post, check status, JSON, and body
+  posts-api.spec.ts       TC-08  REST API: create, read, update, delete a post; 404 for a missing one
 test-cases/TEST_CASES.md  Test case ↔ automated test map
 docs/                     Recorded demo of the AI repair workflow
 .cursor/rules/            Framework rules, always applied by the Cursor agent
@@ -70,7 +72,7 @@ See it in action: [docs/demo-analyze-failure.md](docs/demo-analyze-failure.md) �
 
 ```bash
 npm install
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 
 npm test              # all tests
 npm run test:smoke    # only @smoke tests
@@ -86,5 +88,5 @@ To test a deployed copy of the portfolio: `BASE_URL=https://your-site.example np
 ## What I would add next
 
 - Visual regression snapshots for the hero on desktop and mobile
-- Firefox and WebKit projects
+- An end-to-end Sauce Demo purchase journey: cart → checkout → order confirmation
 - Run against the deployed site on a schedule to catch production-only issues

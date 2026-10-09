@@ -34,12 +34,17 @@ test.describe('TC-05 Accessibility', () => {
   // TC-05b: keyboard users can jump over the header straight to the content.
   test('first Tab focuses "Skip to content" and Enter jumps to the main content', async ({
     homePage,
+    browserName,
   }) => {
     const skipLink = homePage.page.getByRole('link', { name: 'Skip to content' });
 
+    // Safari (WebKit) skips links on a plain Tab by default; its keyboard
+    // users press Option+Tab instead, so the test presses what they press.
+    const tabKey = browserName === 'webkit' ? 'Alt+Tab' : 'Tab';
+
     // The first Tab press on a fresh page focuses the skip link
     // (it is visually hidden until focused).
-    await homePage.page.keyboard.press('Tab');
+    await homePage.page.keyboard.press(tabKey);
     await expect(skipLink).toBeFocused();
 
     // Enter follows the link: the URL gets #main and the main content is on screen.

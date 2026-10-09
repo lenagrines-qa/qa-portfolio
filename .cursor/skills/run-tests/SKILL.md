@@ -19,7 +19,7 @@ Run from the repo root. Combine options when the request combines them.
 | smoke | `npx playwright test --grep @smoke` |
 | one file: home-page / navigation / contact / mobile-menu / accessibility / site-health / saucedemo-login / posts-api | `npx playwright test tests/<name>.spec.ts` |
 | one test by its title or topic (e.g. "copy email") | `npx playwright test -g "<part of the test title>"` |
-| desktop only / mobile only | add `--project=desktop-chrome` / `--project=mobile-chrome` |
+| one browser: Chrome / Firefox / WebKit (Safari) / mobile | add `--project=desktop-chrome` / `desktop-firefox` / `desktop-webkit` / `mobile-chrome` |
 | login tests (Sauce Demo) | `npx playwright test --project=login` |
 | one login case: valid / wrong password / locked out / empty username / empty password | `npx playwright test --project=login -g "<case words or TC id>"` |
 | API test (JSONPlaceholder) | `npx playwright test --project=api` |
@@ -27,7 +27,7 @@ Run from the repo root. Combine options when the request combines them.
 | failed tests from the last run | add `--last-failed` |
 
 To match a topic to a test title, read the `test(...)` titles in `tests/*.spec.ts`.
-`tests/mobile-menu.spec.ts` runs only in `mobile-chrome`, `tests/saucedemo-login.spec.ts` only in `login` (live Sauce Demo site, needs internet), `tests/posts-api.spec.ts` only in `api` (live JSONPlaceholder API, needs internet); all other specs only in `desktop-chrome`.
+`tests/mobile-menu.spec.ts` runs only in `mobile-chrome`, `tests/saucedemo-login.spec.ts` only in `login` (live Sauce Demo site, needs internet), `tests/posts-api.spec.ts` only in `api` (live JSONPlaceholder API, needs internet); all other specs in `desktop-chrome`, `desktop-firefox`, and `desktop-webkit`.
 
 ## 2. Run it
 
@@ -35,7 +35,7 @@ To match a topic to a test title, read the `test(...)` titles in `tests/*.spec.t
 - The command launches a browser and starts a local web server on port 4174, so run it with permission to do both.
 - Every test fails in ≈0 ms with "Executable doesn't exist" → Playwright cannot find its browser:
   1. If `PLAYWRIGHT_BROWSERS_PATH` is set, unset it so Playwright uses its default browser location.
-  2. Still failing → run `npx playwright install chromium`.
+  2. Still failing → run `npx playwright install chromium firefox webkit`.
   3. Rerun the tests once.
 - Every login test fails on `page.goto` with `net::ERR_...` or a navigation timeout → Sauce Demo is unreachable. The API test fails with `getaddrinfo`, `ECONNREFUSED`, or `ETIMEDOUT` → JSONPlaceholder is unreachable. This is an environment problem, not a bug: tell the user to check the internet or retry later, and do not touch code.
 

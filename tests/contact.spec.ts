@@ -25,13 +25,22 @@ test.describe('TC-03 Contact and resume @smoke', () => {
   // TC-03b: "Copy email" puts the address into the clipboard and confirms it.
   // `context` is the built-in fixture for the browser session (cookies,
   // permissions). `page` is the open tab, used here to read the clipboard.
+  // `browserName` tells which engine runs the test (chromium / firefox / webkit).
   test('copy email button puts the address in the clipboard and confirms it', async ({
     homePage,
     page,
     context,
+    browserName,
   }) => {
     // Browsers block clipboard access by default; allow it for this test.
-    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    // Playwright names these permissions per engine: Chromium needs both,
+    // WebKit knows only 'clipboard-read', Firefox needs none.
+    const clipboardPermissions = {
+      chromium: ['clipboard-read', 'clipboard-write'],
+      webkit: ['clipboard-read'],
+      firefox: [],
+    }[browserName];
+    await context.grantPermissions(clipboardPermissions);
 
     await homePage.goToSection('Contact', 'contact');
     await homePage.copyEmailButton.click();

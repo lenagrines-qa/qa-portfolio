@@ -30,7 +30,7 @@ Task skills in `.cursor/skills/`: `write-test` (new test), `run-tests` (run and 
 4. No `waitForTimeout`, no `force: true`, no CSS chains like `div > div:nth-child(2)`. Rely on auto-waiting assertions.
 5. Facts about Lena come from the site / resume only: phone `786-941-8197` (`tel:+17869418197`), email `lenagrines.qa@gmail.com`. Sauce Demo data comes from its own login page (password `secret_sauce`); API expectations come from a real response of the API. Never invent data.
 6. Critical-path tests get `@smoke` in the `describe` title.
-7. Projects: `tests/mobile-menu.spec.ts` → `mobile-chrome`; `tests/saucedemo-login.spec.ts` → `login`; `tests/*-api.spec.ts` (e.g. `posts-api.spec.ts`) → `api`; everything else → `desktop-chrome`. A new API spec is named `<resource>-api.spec.ts`; a new Sauce Demo spec must be added to the `login` project's `testMatch` and the `desktop-chrome` `testIgnore`.
+7. Projects: `tests/mobile-menu.spec.ts` → `mobile-chrome`; `tests/saucedemo-login.spec.ts` → `login`; `tests/*-api.spec.ts` (e.g. `posts-api.spec.ts`) → `api`; everything else → `desktop-chrome`, `desktop-firefox`, and `desktop-webkit`. A real browser difference (e.g. Safari's Option+Tab) is handled with `browserName` and a comment, never by skipping the browser. A new API spec is named `<resource>-api.spec.ts`; a new Sauce Demo spec must be added to the `login` project's `testMatch` and the `desktop-chrome` `testIgnore`.
 8. Every new test gets a row in `test-cases/TEST_CASES.md`.
 9. Comments in code are in English and explain what is checked and why.
 10. Never change the site to make a test pass.

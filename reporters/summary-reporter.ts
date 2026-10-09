@@ -35,7 +35,7 @@ type Status = 'passed' | 'failed' | 'flaky' | 'skipped';
 type Row = {
   area: string; // describe title without tags, e.g. "TC-03 Contact and resume"
   title: string; // test title
-  project: string; // desktop-chrome / mobile-chrome / login / api
+  project: string; // desktop-chrome / desktop-firefox / desktop-webkit / mobile-chrome / login / api
   tags: string[]; // e.g. ["@smoke"]
   status: Status;
   durationMs: number;

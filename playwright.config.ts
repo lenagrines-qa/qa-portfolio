@@ -27,6 +27,14 @@ const SITE_DIR = path.resolve(__dirname, 'site');
 // It lets the same config behave stricter on CI than on a laptop.
 const isCI = !!process.env.CI;
 
+// Specs the desktop portfolio projects (Chrome, Firefox, WebKit) skip:
+// the phone-only menu, and the specs for other sites (Sauce Demo, the API).
+const PORTFOLIO_DESKTOP_IGNORE = [
+  /mobile-menu\.spec\.ts/,
+  /saucedemo-login\.spec\.ts/,
+  /-api\.spec\.ts/,
+];
+
 export default defineConfig({
   // Folder where Playwright looks for *.spec.ts files.
   testDir: './tests',
@@ -96,7 +104,19 @@ export default defineConfig({
       // saucedemo-login.spec.ts and *-api.spec.ts test other sites, so they are excluded too.
       name: 'desktop-chrome',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: [/mobile-menu\.spec\.ts/, /saucedemo-login\.spec\.ts/, /-api\.spec\.ts/],
+      testIgnore: PORTFOLIO_DESKTOP_IGNORE,
+    },
+    {
+      // Cross-browser: the same desktop portfolio specs in Firefox...
+      name: 'desktop-firefox',
+      use: { ...devices['Desktop Firefox'] },
+      testIgnore: PORTFOLIO_DESKTOP_IGNORE,
+    },
+    {
+      // ...and in WebKit, the browser engine of Safari.
+      name: 'desktop-webkit',
+      use: { ...devices['Desktop Safari'] },
+      testIgnore: PORTFOLIO_DESKTOP_IGNORE,
     },
     {
       // Emulated Pixel 7 phone (412px wide, touch, mobile user agent).

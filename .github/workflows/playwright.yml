@@ -39,9 +39,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. Chromium plus the Linux system libraries it needs.
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+      # 4. Chromium, Firefox, and WebKit plus the Linux system libraries they need.
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
 
       # 5. Run the tests. GitHub sets CI=true, so playwright.config.ts switches
       #    to CI mode: 2 retries, 1 worker, a fresh web server, no test.only.
