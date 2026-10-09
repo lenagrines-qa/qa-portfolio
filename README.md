@@ -1,9 +1,9 @@
 # Lena Grines — QA Portfolio
 
-[![Playwright tests](https://github.com/lenagrines-qa/lena-grines-qa-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/lenagrines-qa/lena-grines-qa-portfolio/actions/workflows/playwright.yml)
+[![Playwright tests](https://github.com/lenagrines-qa/qa-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/lenagrines-qa/qa-portfolio/actions/workflows/playwright.yml)
 
-**Live site:** [lenagrines-qa.github.io/lena-grines-qa-portfolio](https://lenagrines-qa.github.io/lena-grines-qa-portfolio/) ·
-**Latest test report:** [Test Summary Report](https://lenagrines-qa.github.io/lena-grines-qa-portfolio/report/)
+**Live site:** [lenagrines-qa.github.io/qa-portfolio](https://lenagrines-qa.github.io/qa-portfolio/) ·
+**Latest test report:** [Test Summary Report](https://lenagrines-qa.github.io/qa-portfolio/report/)
 
 My portfolio site (`site/`) and its test automation in one repo.
 End-to-end UI, accessibility, and site-health tests for the site in Chrome, Firefox, and WebKit (Safari),
