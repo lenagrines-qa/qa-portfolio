@@ -146,9 +146,14 @@ class SummaryReporter implements Reporter {
           ? 'Ready for release, with a follow-up: investigate the flaky tests so they do not hide real bugs.'
           : 'Ready for release. All checks passed, no defects found.';
 
+    // Time zone is shown because CI servers run in UTC, not the reader's zone.
     const started = result.startTime.toLocaleString('en-US', {
-      dateStyle: 'medium',
-      timeStyle: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZoneName: 'short',
     });
     const platform = { darwin: 'macOS', linux: 'Linux', win32: 'Windows' }[process.platform as string]
       ?? process.platform;
